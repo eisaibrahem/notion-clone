@@ -1,0 +1,47 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 219 224" width="304" height="311">
+	<title>nnnn-svg</title>
+	<style>
+		tspan { white-space:pre } 
+		.s0 { fill: #fafafa } 
+		.t1 { font-size: 150px;fill: #ffffff;font-weight: 400;font-family: "Chonburi-Regular", "Chonburi" } 
+		.s2 { opacity: .9;fill: #e0e0e0 } 
+		.s3 { opacity: .1;fill: #dedede } 
+		.s4 { opacity: .7;fill: #d9d9d9 } 
+		.s5 { fill: #dddddd } 
+	</style>
+	<g id="Layer">
+		<path id="Layer" fill-rule="evenodd" class="s0" d="m136.5 0.5q9-0.2 18 0.5 4.1 1.2 8 3 20 14 40 28 5.8 4.3 10.5 9.5 1.5 81.1-1 162-6.2 6.7-15.5 6.5-70 4.1-140 8.5-11.9 0.9-18.5-9-12.4-18.3-27-35-3.8-5.6-6-12-1.5-73.1 1-146 3.5-5 9.5-6.5 60.8-4.5 121-9.5zm46 34q-12.5-9.3-25-18.5-6.2-2.8-13-2.5-58.5 4.4-117 8.5-2.3 0.4-4 2 1.9 2.7 5 3.5 1 2 3 3 7.2 6 15 11.5 3.8 0.8 7.5 1.5 43.3-3 86.5-6 14.5-0.4 29-1 6.6-0.6 13-2zm10 158.5q4.6-0.8 5.5-5.5 1.5-67.6-1-135-2.6-2.1-6-2-46.8 3.1-93.5 6-14 0.7-28 1-2.9 1-6 1-8.6-1.4-15 4-0.3 67 0.5 134 1.2 2.3 3.5 3.5 47.6-0.8 95-4.5 13.5-0.7 27-1 9-1 18-1.5z"/>
+		<text id="E" style="transform: matrix(1,0,0,1,75,69)" >
+			<tspan x="1.4" y="109.5" class="t1">E</tspan><tspan  y="109.5" class="t1">
+</tspan>
+		</text>
+		<text id="" style="transform: matrix(1,0,0,1,272,72)" >
+		</text>
+		<text id="" style="transform: matrix(1,0,0,1,243,62)" >
+		</text>
+	</g>
+	<g id="Layer">
+		<path id="Layer" fill-rule="evenodd" class="s2" d="m170.5 37.5q-14.4 2.9-29 1 14.5-0.4 29-1z"/>
+	</g>
+	<g id="Layer">
+		<path id="Layer" fill-rule="evenodd" class="s3" d="m98.5 57.5q-14 0.7-28 1 14-2.5 28-1z"/>
+	</g>
+	<g id="Layer">
+		<path id="Layer" fill-rule="evenodd" class="s4" d="m64.5 59.5q-8.6-1.4-15 4 0.6-3.4 4-4.5 5.8-1.2 11 0.5z"/>
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+	</g>
+	<g id="Layer">
+		<path id="Layer" fill-rule="evenodd" class="s5" d="m175.5 195.5q-13.5 2.6-27 1 13.5-0.7 27-1z"/>
+	</g>
+</svg>
