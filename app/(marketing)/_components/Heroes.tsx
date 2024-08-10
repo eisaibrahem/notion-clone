@@ -34,9 +34,15 @@ const Heroes = () => {
             alt="hero2"
           /> */}
           <Image
-            src="/hero3.png"
+            src="/images/1-white.svg"
             fill
-            className="object-left object-contain"
+            className="object-left object-contain dark:hidden"
+            alt="hero1"
+          />
+          <Image
+            src="/images/1-dark.svg"
+            fill
+            className="object-left object-contain dark:block hidden"
             alt="hero1"
           />
         </div>

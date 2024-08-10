@@ -2,8 +2,9 @@
 import { cn } from "@/lib/utils";
 import { ChevronsLeft, MenuIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
-import React, { ElementRef, useRef, useState } from "react";
+import React, { ElementRef, useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
+import UserItem from "./user-item";
 
 function Navigation() {
   const pathName = usePathname();
@@ -20,7 +21,6 @@ function Navigation() {
   ) => {
     event.preventDefault();
     event.stopPropagation();
-
     isResizingRef.current = true;
     document.addEventListener("mousemove", handelMouseMove);
     document.addEventListener("mouseup", handelMouseUp);
@@ -54,6 +54,49 @@ function Navigation() {
     document.removeEventListener("mouseup", handelMouseUp);
   };
 
+  const resetWidth = () => {
+    if (sideBarRef.current && nevBarRef.current) {
+      setIsCollapsed(false);
+      setIsResetting(true);
+      sideBarRef.current.style.width = isMobile ? "100%" : "240px";
+      nevBarRef.current.style.setProperty(
+        "width",
+        isMobile ? "100%" : "calc(100% - 240px)"
+      );
+      nevBarRef.current.style.setProperty("left", isMobile ? "100%" : "240px");
+      setTimeout(() => {
+        setIsResetting(false);
+      }, 300);
+    }
+  };
+
+  const collapse = () => {
+    if (sideBarRef.current && nevBarRef.current) {
+      setIsCollapsed(true);
+      setIsResetting(true);
+      sideBarRef.current.style.width = "0px";
+      nevBarRef.current.style.setProperty("width", "100%");
+      nevBarRef.current.style.setProperty("left", "0");
+      setTimeout(() => {
+        setIsResetting(false);
+      }, 300);
+    }
+  };
+
+  useEffect(() => {
+    if (isMobile) {
+      collapse();
+    } else {
+      resetWidth();
+    }
+  }, [isMobile]);
+
+  useEffect(() => {
+    if (!isMobile) {
+      collapse();
+    }
+  }, [pathName, isMobile]);
+
   return (
     <>
       <aside
@@ -65,6 +108,7 @@ function Navigation() {
         )}
       >
         <div
+          onClick={collapse}
           role="button"
           className={cn(
             "absolute top-3 right-2  w-6 h-6 text-muted-foreground rounded-sm hover:bg-neutral-300dark:hover:bg-neutral-600 opacity-0 group-hover/sidebar:opacity-100",
@@ -74,12 +118,12 @@ function Navigation() {
           <ChevronsLeft className="w-6 h-6" />
         </div>
         <div>
-          <p>Actions items</p>
+          <UserItem />
         </div>
         <div className="mt-4">Documents</div>
         <div
           onMouseDown={handelMouseDown}
-          onClick={() => {}}
+          onClick={resetWidth}
           className="opacity-0 group-hover/sidebar:opacity-100
         transition cursor-ew-resize absolute h-full w-1 bg-primary/10 right-0 top-0
         "
@@ -95,7 +139,11 @@ function Navigation() {
       >
         <nav className="bg-transparent px-3 py-2 w-full">
           {isCollapsed && (
-            <MenuIcon role="button" className="w-6 h-6 text-muted-foreground" />
+            <MenuIcon
+              onClick={resetWidth}
+              role="button"
+              className="w-6 h-6 text-muted-foreground"
+            />
           )}
         </nav>
       </div>
