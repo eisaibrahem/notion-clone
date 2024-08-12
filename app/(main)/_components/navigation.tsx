@@ -3,9 +3,11 @@ import { cn } from "@/lib/utils"; // Import a utility function for conditional c
 import {
   ChevronsLeft,
   MenuIcon,
+  Plus,
   PlusCircle,
   Search,
   Settings,
+  Trash,
 } from "lucide-react"; // Import icons from the Lucide React library
 import { usePathname } from "next/navigation"; // Import a hook to get the current pathname
 import React, { ElementRef, useEffect, useRef, useState } from "react"; // Import React and necessary hooks
@@ -16,6 +18,12 @@ import { api } from "@/convex/_generated/api"; // Import the API from Convex
 import Item from "./item"; // Import a custom component for items in the sidebar
 import { toast } from "sonner"; // Import the toast notification system
 import DocumentList from "./document-list"; // Import a component to list documents
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import TrashBox from "./trash-box";
 
 function Navigation() {
   const pathName = usePathname(); // Get the current pathname
@@ -156,11 +164,23 @@ function Navigation() {
             onClick={handelCreateDocument}
             lable="New Page"
             icon={PlusCircle}
-          />{" "}
+          />
+          <Popover>
+            <PopoverTrigger className="w-full mt-4">
+              <Item lable="Trash" icon={Trash} />
+            </PopoverTrigger>
+            <PopoverContent
+              side={isMobile ? "bottom" : "right"}
+              className="w-72 p-0"
+            >
+              <TrashBox />
+            </PopoverContent>
+          </Popover>
           {/* Render the New Page item */}
         </div>
         <div className="mt-4">
           <DocumentList /> {/* Render the list of documents */}
+          <Item onClick={handelCreateDocument} icon={Plus} lable="Add Page" />
         </div>
         <div
           onMouseDown={handelMouseDown}
