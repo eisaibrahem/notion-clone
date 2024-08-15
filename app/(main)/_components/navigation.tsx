@@ -9,7 +9,7 @@ import {
   Settings,
   Trash,
 } from "lucide-react"; // Import icons from the Lucide React library
-import { usePathname } from "next/navigation"; // Import a hook to get the current pathname
+import { useParams, usePathname } from "next/navigation"; // Import a hook to get the current pathname
 import React, { ElementRef, useEffect, useRef, useState } from "react"; // Import React and necessary hooks
 import { useMediaQuery } from "usehooks-ts"; // Import a hook to handle media queries
 import UserItem from "./user-item"; // Import a custom component for user items
@@ -24,8 +24,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import TrashBox from "./trash-box";
+import UseSearch from "@/hooks/use-search";
+import { useSetting } from "@/hooks/use-setting";
+import Navbar from "./navbar";
 
 function Navigation() {
+  const settings = useSetting();
+  const search = UseSearch();
+  const params = useParams();
   const pathName = usePathname(); // Get the current pathname
   const isMobile = useMediaQuery("(max-width: 768px)"); // Check if the screen width is 768px or less (mobile view)
   const createDocument = useMutation(api.documents.createDocument); // Mutation to create a new document
@@ -117,7 +123,7 @@ function Navigation() {
 
   // Effect to handle path changes
   useEffect(() => {
-    if (!isMobile) {
+    if (isMobile) {
       collapse(); // Collapse the sidebar when the path changes (if not on mobile)
     }
   }, [pathName, isMobile]);
@@ -156,9 +162,14 @@ function Navigation() {
         </div>
         <div>
           <UserItem /> {/* Render the UserItem component */}
-          <Item lable="Search" icon={Search} isSearch onClick={() => {}} />{" "}
+          <Item
+            lable="Search"
+            icon={Search}
+            isSearch
+            onClick={search.onOpen}
+          />{" "}
           {/* Render the Search item */}
-          <Item lable="Setting" icon={Settings} onClick={() => {}} />{" "}
+          <Item lable="Setting" icon={Settings} onClick={settings.onOpen} />
           {/* Render the Settings item */}
           <Item
             onClick={handelCreateDocument}
@@ -199,15 +210,19 @@ function Navigation() {
           isMobile && "w-full left-0" // Adjust width and position for mobile
         )}
       >
-        <nav className="bg-transparent px-3 py-2 w-full">
-          {isCollapsed && (
-            <MenuIcon
-              onClick={resetWidth}
-              role="button"
-              className="w-6 h-6 text-muted-foreground"
-            /> /* Icon to open the sidebar when collapsed */
-          )}
-        </nav>
+        {!!params.documentId ? (
+          <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
+        ) : (
+          <nav className="bg-transparent px-3 py-2 w-full">
+            {isCollapsed && (
+              <MenuIcon
+                onClick={resetWidth}
+                role="button"
+                className="w-6 h-6 text-muted-foreground"
+              /> /* Icon to open the sidebar when collapsed */
+            )}
+          </nav>
+        )}
       </div>
     </>
   );

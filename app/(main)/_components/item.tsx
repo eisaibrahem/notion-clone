@@ -136,7 +136,7 @@ function Item({
          items-center gap-1 rounded border bg-muted px-1.5 font-mono 
          text-[12px] font-medium text-muted-foreground opacity-100"
         >
-          <span className="text-[8px]">&#x2318;</span>K
+          <span className="text-[8px]">&#x2318;</span>P
         </kbd>
       )}
       {!!id && ( // If there's an ID, show the plus icon for creating a sub-document

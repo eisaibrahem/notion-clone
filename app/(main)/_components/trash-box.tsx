@@ -86,13 +86,16 @@ function TrashBox() {
             <div className="flex items-center ">
               <div
                 role="button"
-                className="text-muted-foreground rounded-sm p-2 hover:bg-neutral-200"
+                className="text-muted-foreground rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
                 onClick={(event) => onRestore(event, document._id)}
               >
                 <Undo className="h-4 w-4 text-muted-foreground" />
               </div>
               <ConfirmModel onConfirm={() => onRemove(document._id)}>
-                <div role="button" className="rounded-sm p-2 hover:bg-red-100">
+                <div
+                  role="button"
+                  className="rounded-sm p-2 hover:bg-red-200 dark:hover:bg-red-950"
+                >
                   <Trash className="h-4 w-4 text-muted-foreground" />
                 </div>
               </ConfirmModel>
