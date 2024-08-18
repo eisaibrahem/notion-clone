@@ -58,7 +58,9 @@ function Item({
   const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation(); // Prevent the event from propagating to parent elements
     if (!id) return; // If there's no document ID, do nothing
-    const promise = archive({ id });
+    const promise = archive({ id }).then(() => {
+      router.push("/documents");
+    });
     toast.promise(promise, {
       loading: "Moving To Trash...",
       success: "Note Moved To Trash",
@@ -89,7 +91,7 @@ function Item({
     const promise = create({ title: "Untitled", parentDocument: id }).then(
       (documentId) => {
         if (!expanded) onExpand?.(); // If the item is not expanded, expand it
-        // router.push(`/documents/${documentId}`); // Navigate to the new document (commented out)
+        router.push(`/documents/${documentId}`); // Navigate to the new document (commented out)
       }
     );
 

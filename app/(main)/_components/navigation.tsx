@@ -9,7 +9,7 @@ import {
   Settings,
   Trash,
 } from "lucide-react"; // Import icons from the Lucide React library
-import { useParams, usePathname } from "next/navigation"; // Import a hook to get the current pathname
+import { useParams, usePathname, useRouter } from "next/navigation"; // Import a hook to get the current pathname
 import React, { ElementRef, useEffect, useRef, useState } from "react"; // Import React and necessary hooks
 import { useMediaQuery } from "usehooks-ts"; // Import a hook to handle media queries
 import UserItem from "./user-item"; // Import a custom component for user items
@@ -29,6 +29,7 @@ import { useSetting } from "@/hooks/use-setting";
 import Navbar from "./navbar";
 
 function Navigation() {
+  const router = useRouter();
   const settings = useSetting();
   const search = UseSearch();
   const params = useParams();
@@ -42,18 +43,18 @@ function Navigation() {
   const [isCollapsed, setIsCollapsed] = useState(isMobile); // State to track if the sidebar is collapsed
 
   // Function to handle when the user starts resizing the sidebar
-  const handelMouseDown = (
+  const handleMouseDown = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
     event.preventDefault(); // Prevent default behavior
     event.stopPropagation(); // Stop the event from bubbling up
     isResizingRef.current = true; // Set resizing to true
-    document.addEventListener("mousemove", handelMouseMove); // Add a listener to track mouse movements
-    document.addEventListener("mouseup", handelMouseUp); // Add a listener to handle when the user stops resizing
+    document.addEventListener("mousemove", handleMouseMove); // Add a listener to track mouse movements
+    document.addEventListener("mouseup", handleMouseUp); // Add a listener to handle when the user stops resizing
   };
 
   // Function to handle the resizing of the sidebar
-  const handelMouseMove = (event: MouseEvent) => {
+  const handleMouseMove = (event: MouseEvent) => {
     if (!isResizingRef.current) {
       return; // If not resizing, do nothing
     }
@@ -75,10 +76,10 @@ function Navigation() {
   };
 
   // Function to handle when the user stops resizing the sidebar
-  const handelMouseUp = () => {
+  const handleMouseUp = () => {
     isResizingRef.current = false; // Set resizing to false
-    document.removeEventListener("mousemove", handelMouseMove); // Remove the mousemove listener
-    document.removeEventListener("mouseup", handelMouseUp); // Remove the mouseup listener
+    document.removeEventListener("mousemove", handleMouseMove); // Remove the mousemove listener
+    document.removeEventListener("mouseup", handleMouseUp); // Remove the mouseup listener
   };
 
   // Function to reset the sidebar to its default width
@@ -129,8 +130,10 @@ function Navigation() {
   }, [pathName, isMobile]);
 
   // Function to create a new document
-  const handelCreateDocument = () => {
-    const promise = createDocument({ title: "Untitled" }); // Create a new document with a default title
+  const handleCreateDocument = () => {
+    const promise = createDocument({ title: "Untitled" }).then((documentId) =>
+      router.push(`/documents/${documentId}`)
+    ); // Create a new document with a default title
 
     toast.promise(promise, {
       loading: "Creating A New Node...", // Show a loading toast
@@ -144,7 +147,7 @@ function Navigation() {
       <aside
         ref={sideBarRef}
         className={cn(
-          "group/sidebar h-full  bg-secondary overflow-y-auto relative felx w-60 flex-col z-[999] min-h-[100vh]",
+          "group/sidebar h-full  bg-secondary overflow-y-auto sticky felx w-60 flex-col z-[999] min-h-[100vh] left-0 top-0",
           isResetting && "transition-all ease-in-out duration-300", // Apply transition during reset
           isMobile && "w-0" // Set width to 0 if on mobile
         )}
@@ -172,7 +175,7 @@ function Navigation() {
           <Item lable="Setting" icon={Settings} onClick={settings.onOpen} />
           {/* Render the Settings item */}
           <Item
-            onClick={handelCreateDocument}
+            onClick={handleCreateDocument}
             lable="New Page"
             icon={PlusCircle}
           />
@@ -191,10 +194,10 @@ function Navigation() {
         </div>
         <div className="mt-4">
           <DocumentList /> {/* Render the list of documents */}
-          <Item onClick={handelCreateDocument} icon={Plus} lable="Add Page" />
+          <Item onClick={handleCreateDocument} icon={Plus} lable="Add Page" />
         </div>
         <div
-          onMouseDown={handelMouseDown}
+          onMouseDown={handleMouseDown}
           onClick={resetWidth}
           className="opacity-0 group-hover/sidebar:opacity-100
         transition cursor-ew-resize absolute h-full w-1 bg-primary/10 right-0 top-0

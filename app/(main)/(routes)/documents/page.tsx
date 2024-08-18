@@ -7,13 +7,17 @@ import Image from "next/image";
 import React from "react";
 import { api } from "@/convex/_generated/api";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 function DocumentsPage() {
+  const router = useRouter();
   const { user } = useUser();
   const createDocument = useMutation(api.documents.createDocument);
 
   const onCreateDocument = () => {
-    const promise = createDocument({ title: "Untitled" });
+    const promise = createDocument({ title: "Untitled" }).then((documentId) => {
+      router.push(`/documents/${documentId}`);
+    });
 
     toast.promise(promise, {
       loading: "Creating A New Node...",
