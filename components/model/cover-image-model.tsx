@@ -26,8 +26,13 @@ function CoverImageModel() {
     if (file) {
       setFile(file);
       setIsSubmitting(true);
-      const res = await edgestore.publicFiles.upload({ file });
 
+      const res = await edgestore.publicFiles.upload({
+        file,
+        options: {
+          replaceTargetUrl: coverImage.url,
+        },
+      });
       await update({
         id: params.documentId as Id<"documents">,
         coverImage: res.url,
@@ -47,8 +52,6 @@ function CoverImageModel() {
           className="w-full outline-none"
           disabled={isSubmitting}
           value={file}
-          width={350}
-          height={300}
           onChange={onChange}
         />
       </DialogContent>
