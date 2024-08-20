@@ -20,7 +20,6 @@ interface PublishProps {
 function Publish({ initialData }: PublishProps) {
   const origin = useOrigin();
   const updata = useMutation(api.documents.updateDocument);
-
   const [copied, setCopied] = useState(false);
   const [isSubmmitting, setIsSubmmiting] = useState(false);
   const url = `${origin}/preview/${initialData._id}`;

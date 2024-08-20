@@ -140,31 +140,32 @@ export const getSearch = query({
 
 // Query to retrieve a document by its ID
 export const getById = query({
-  args: { documentId: v.id("documents") }, // Document ID to retrieve
+  args: { documentId: v.id("documents") }, // معرف المستند المطلوب
   handler: async (ctx, args) => {
-    const userId = await validateUser(ctx); // Validate the user
-    const document = await fetchDocument(ctx, args.documentId, userId); // Fetch and validate the document
-    return document; // Return the document
+    const document = await ctx.db.get(args.documentId); // جلب المستند من قاعدة البيانات
+    if (!document) throw new Error("Document not found"); // إرجاع خطأ إذا لم يتم العثور على المستند
+    return document; // إعادة المستند إذا كان موجودًا
   },
 });
 
 // Mutation to update a document's details
 export const updateDocument = mutation({
   args: {
-    id: v.id("documents"), // Document ID to update
-    title: v.optional(v.string()), // Optional title update
-    content: v.optional(v.string()), // Optional content update
-    coverImage: v.optional(v.string()), // Optional cover image update
-    icon: v.optional(v.string()), // Optional icon update
-    isPublished: v.optional(v.boolean()), // Optional published status update
+    id: v.id("documents"), // معرف المستند للتحديث
+    title: v.optional(v.string()), // تحديث العنوان إذا كان موجودًا
+    content: v.optional(v.string()), // تحديث المحتوى إذا كان موجودًا
+    coverImage: v.optional(v.string()), // تحديث صورة الغلاف إذا كانت موجودة
+    icon: v.optional(v.string()), // تحديث الأيقونة إذا كانت موجودة
+    isPublished: v.optional(v.boolean()), // تحديث حالة النشر إذا كانت موجودة
   },
   handler: async (ctx, args) => {
-    const userId = await validateUser(ctx); // Validate the user
-    const { id, ...updateFields } = args; // Extract id and separate the fields to update
-    await fetchDocument(ctx, id, userId); // Fetch and validate the document
-    return await ctx.db.patch(id, updateFields); // Update the document with the provided fields
+    const { id, ...updateFields } = args; // استخراج المعرف والحقول المطلوب تحديثها
+    const document = await ctx.db.get(id); // جلب المستند من قاعدة البيانات
+    if (!document) throw new Error("Document not found"); // إرجاع خطأ إذا لم يتم العثور على المستند
+    return await ctx.db.patch(id, updateFields); // تحديث المستند بالحقول المطلوبة
   },
 });
+
 
 // Mutation to remove a document's icon
 export const removeIcon = mutation({
