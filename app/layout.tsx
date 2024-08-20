@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="dark:bg-[#1f1f1f]" suppressHydrationWarning>
       <body className={cn(inter.className, "dark:bg-[#1f1f1f]")}>
         <ConvexClientProvider>
           <EdgeStoreProvider>

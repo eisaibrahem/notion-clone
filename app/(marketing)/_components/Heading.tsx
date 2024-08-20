@@ -10,8 +10,8 @@ import React from "react";
 const Heading = () => {
   const { isAuthenticated, isLoading } = useConvexAuth();
   return (
-    <div className="max-w-3xl space-y-4">
-      <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold">
+    <div className="max-w-3xl space-y-3">
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">
         Your Ideas, Documents & Workspaces In One Place. Welcome to
         <span className="underline ml-1">Notion</span>
       </h1>
