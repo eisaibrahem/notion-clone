@@ -21,7 +21,7 @@ function DocumentsIdPage({ params }: DocumentsIdPageProps) {
     });
   }, []);
   const router = useRouter();
-  const document = useQuery(api.documents.getById, {
+  const document = useQuery(api.documents.getPublishedDocumentById, {
     documentId: params.documentId,
   });
 

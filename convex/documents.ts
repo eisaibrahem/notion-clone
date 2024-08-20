@@ -148,6 +148,16 @@ export const getById = query({
   },
 });
 
+export const getPublishedDocumentById = query({
+  args: { documentId: v.id("documents") }, // معرف المستند المطلوب
+  handler: async (ctx, args) => {
+    const document = await ctx.db.get(args.documentId); // جلب المستند من قاعدة البيانات
+    if (!document) throw new Error("Document not found"); // إرجاع خطأ إذا لم يتم العثور على المستند
+    if (!document.isPublished) throw new Error("Document is not published"); // إرجاع خطأ إذا لم يكن المستند منشورًا
+    return document; // إعادة المستند إذا كان منشورًا
+  },
+});
+
 // Mutation to update a document's details
 export const updateDocument = mutation({
   args: {
@@ -165,7 +175,6 @@ export const updateDocument = mutation({
     return await ctx.db.patch(id, updateFields); // تحديث المستند بالحقول المطلوبة
   },
 });
-
 
 // Mutation to remove a document's icon
 export const removeIcon = mutation({
