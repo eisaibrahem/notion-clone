@@ -83,6 +83,7 @@ function TrashBox() {
             onClick={() => onClick(document._id)}
           >
             <span className="truncate pl-2 ">{document.title}</span>
+
             <div className="flex items-center ">
               <div
                 role="button"

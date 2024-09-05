@@ -33,15 +33,15 @@ function DocumentList({
     }));
   };
 
-  // Fetch documents based on the parent document ID
-  const documents = useQuery(api.documents.getSideBar, {
-    parentDocument: parentDocumentId,
-  });
-
   // Function to navigate to the selected document's page
   const onRedirect = (documentId: string) => {
     router.push(`/documents/${documentId}`); // Change the browser's URL to open the document
   };
+
+  // Fetch documents based on the parent document ID
+  const documents = useQuery(api.documents.getSideBar, {
+    parentDocument: parentDocumentId,
+  });
 
   // Show skeletons if the documents are still loading
   if (documents === undefined) {

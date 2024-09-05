@@ -54,6 +54,8 @@ function Item({
   const { user } = useUser();
   const router = useRouter(); // Hook for handling navigation
   const archive = useMutation(api.documents.archiveDocument);
+  // Mutation to create a new document
+  const create = useMutation(api.documents.createDocument);
 
   const onArchive = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     event.stopPropagation(); // Prevent the event from propagating to parent elements
@@ -78,9 +80,6 @@ function Item({
 
   // Determine which icon to show (ChevronDown for expanded, ChevronRight for collapsed)
   const ChevronIcon = expanded ? ChevronDown : ChevronRight;
-
-  // Mutation to create a new document
-  const create = useMutation(api.documents.createDocument);
 
   // Handle creating a new sub-document when the plus icon is clicked
   const onCreate = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -131,17 +130,23 @@ function Item({
           className="text-muted-foreground shrink-0 h-[18px] w-[18px] mr-2"
         />
       )}
-      <span className="truncate">{lable}</span> {/* Display the label text */}
-      {isSearch && ( // If this is part of a search result, show a keyboard shortcut
+
+      {/* Display the label text */}
+      <span className="truncate">{lable}</span>
+
+      {/* If this is part of a search result, show a keyboard shortcut */}
+      {isSearch && (
         <kbd
           className="ml-auto pointer-events-none inline-flex h-5 select-none
          items-center gap-1 rounded border bg-muted px-1.5 font-mono 
          text-[12px] font-medium text-muted-foreground opacity-100"
         >
-          <span className="text-[8px]">&#x2318;</span>P
+          <span className="text-[8px]">&#x2318; </span>Q
         </kbd>
       )}
-      {!!id && ( // If there's an ID, show the plus icon for creating a sub-document
+
+      {/* If there's an ID, show the plus icon for creating a sub-document */}
+      {!!id && (
         <div className="ml-auto flex items-center gap-x-2">
           <DropdownMenu>
             <DropdownMenuTrigger

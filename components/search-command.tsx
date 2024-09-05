@@ -30,7 +30,7 @@ function SearchCommand() {
   }, []);
 
   const down = (e: KeyboardEvent) => {
-    if (e.key === "p" && (e.metaKey || e.ctrlKey)) {
+    if (e.key === "q" && (e.metaKey || e.ctrlKey)) {
       e.preventDefault();
       toggle();
     }

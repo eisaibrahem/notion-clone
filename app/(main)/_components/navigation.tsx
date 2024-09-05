@@ -147,11 +147,12 @@ function Navigation() {
       <aside
         ref={sideBarRef}
         className={cn(
-          "group/sidebar h-full  bg-secondary overflow-y-auto sticky felx w-60 flex-col z-[999] min-h-[100vh] left-0 top-0",
+          "group/sidebar h-full  bg-secondary overflow-y-auto sticky felx w-60 flex-col z-[99999] min-h-[100vh] left-0 top-0",
           isResetting && "transition-all ease-in-out duration-300", // Apply transition during reset
           isMobile && "w-0" // Set width to 0 if on mobile
         )}
       >
+        {/* ChevronsLeft Icon to collapse the sidebar */}
         <div
           onClick={collapse}
           role="button"
@@ -161,19 +162,16 @@ function Navigation() {
           )}
         >
           <ChevronsLeft className="w-6 h-6" />{" "}
-          {/* Icon to collapse the sidebar */}
         </div>
+
+        {/* Some Actions */}
         <div>
           <UserItem /> {/* Render the UserItem component */}
-          <Item
-            lable="Search"
-            icon={Search}
-            isSearch
-            onClick={search.onOpen}
-          />{" "}
           {/* Render the Search item */}
-          <Item lable="Setting" icon={Settings} onClick={settings.onOpen} />
+          <Item lable="Search" icon={Search} isSearch onClick={search.onOpen} />
           {/* Render the Settings item */}
+          <Item lable="Setting" icon={Settings} onClick={settings.onOpen} />
+          {/* Render the New Page item */}
           <Item
             onClick={handleCreateDocument}
             lable="New Page"
@@ -190,25 +188,26 @@ function Navigation() {
               <TrashBox />
             </PopoverContent>
           </Popover>
-          {/* Render the New Page item */}
         </div>
+        {/* Render the list of documents */}
         <div className="mt-4">
-          <DocumentList /> {/* Render the list of documents */}
+          <DocumentList />
           <Item onClick={handleCreateDocument} icon={Plus} lable="Add Page" />
         </div>
+
+        {/* Handle for resizing the sidebar */}
         <div
           onMouseDown={handleMouseDown}
           onClick={resetWidth}
           className="opacity-0 group-hover/sidebar:opacity-100
         transition cursor-ew-resize absolute h-full w-1 bg-primary/10 right-0 top-0
         "
-        />{" "}
-        {/* Handle for resizing the sidebar */}
+        />
       </aside>
       <div
         ref={nevBarRef}
         className={cn(
-          "absolute top-0 left-60 z-[9999] w-[calc(100%-240px)] ",
+          "absolute top-0 left-60 z-[99999] w-[calc(100%-240px)] ",
           isResetting && "transition-all ease-in-out duration-300", // Apply transition during reset
           isMobile && "w-full left-0" // Adjust width and position for mobile
         )}
@@ -216,13 +215,14 @@ function Navigation() {
         {!!params.documentId ? (
           <Navbar isCollapsed={isCollapsed} onResetWidth={resetWidth} />
         ) : (
+          /* Icon to open the sidebar when collapsed */
           <nav className="bg-transparent px-3 py-2 w-full">
             {isCollapsed && (
               <MenuIcon
                 onClick={resetWidth}
                 role="button"
                 className="w-6 h-6 text-muted-foreground"
-              /> /* Icon to open the sidebar when collapsed */
+              />
             )}
           </nav>
         )}
