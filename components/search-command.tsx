@@ -18,9 +18,9 @@ import { File } from "lucide-react";
 function SearchCommand() {
   const { user } = useUser();
   const router = useRouter();
-  // @ts-ignore
   const searchDocuments = useQuery(api.documents.getSearch);
   const [ismounted, setismounted] = useState(false);
+
   const toggle = UseSearch((store) => store.onToggle);
   const isOpen = UseSearch((store) => store.isOpen);
   const onClose = UseSearch((store) => store.onClose);

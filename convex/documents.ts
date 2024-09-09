@@ -138,6 +138,32 @@ export const getSearch = query({
   },
 });
 
+// Query to search for documents by title (partial match or return all if no title is provided or empty)
+export const searchByTitle = query({
+  handler: async (ctx, { title }: { title?: string }) => {
+    const userId = await validateUser(ctx); // Validate the user
+
+    // جلب المستندات المرتبطة بالمستخدم
+    const documents = await ctx.db
+      .query("documents")
+      .withIndex("by_user", (q) => q.eq("userId", userId))
+      .filter((q) => q.eq(q.field("isArchived"), false)) // Exclude archived documents
+      .collect(); // Collect the results
+
+    // إذا لم يتم إرسال عنوان أو كان العنوان نص فارغ
+    if (!title || title.trim() === "") {
+      return documents; // إرجاع كل المستندات غير المؤرشفة
+    }
+
+    // تصفية المستندات بناءً على تطابق العنوان
+    const filteredDocuments = documents.filter(
+      (doc) => doc.title.toLowerCase().includes(title.toLowerCase()), // البحث مع تجاهل حالة الأحرف
+    );
+
+    return filteredDocuments;
+  },
+});
+
 // Query to retrieve a document by its ID
 export const getById = query({
   args: { documentId: v.id("documents") }, // معرف المستند المطلوب

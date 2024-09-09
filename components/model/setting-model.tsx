@@ -1,4 +1,3 @@
-/* trunk-ignore-all(prettier) */
 "use clinent";
 
 import { useSetting } from "@/hooks/use-setting";
