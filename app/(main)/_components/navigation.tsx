@@ -144,6 +144,7 @@ function Navigation() {
 
   return (
     <>
+      {/* Sidebar */}
       <aside
         ref={sideBarRef}
         className={cn(
@@ -204,6 +205,8 @@ function Navigation() {
         "
         />
       </aside>
+
+      {/* Navbar */}
       <div
         ref={nevBarRef}
         className={cn(

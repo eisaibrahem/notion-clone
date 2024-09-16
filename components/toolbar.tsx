@@ -21,7 +21,6 @@ function Toolbar({ initialData, preview }: ToolbarProps) {
   const update = useMutation(api.documents.updateDocument);
   const removeIcon = useMutation(api.documents.removeIcon);
   const coverImage = useCoverImage();
-  const setting = useSetting();
 
   const enableInput = () => {
     if (preview) return;
@@ -98,6 +97,7 @@ function Toolbar({ initialData, preview }: ToolbarProps) {
             </Button>
           </IconPicker>
         )}
+
         {!initialData.coverImage && !preview && (
           <Button
             variant={"outline"}

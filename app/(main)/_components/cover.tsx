@@ -34,7 +34,7 @@ function Cover({ url, preview }: CoverProps) {
     <div
       className={cn(
         "relative w-full h-[35vh] group",
-        !url && "12-[12vh]",
+        !url && "h-[12vh]",
         url && "bg-muted"
       )}
     >

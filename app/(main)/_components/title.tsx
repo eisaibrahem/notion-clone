@@ -17,6 +17,7 @@ function Title({ initialData }: TitleProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(initialData.title || "Untitled");
   const update = useMutation(api.documents.updateDocument);
+
   const enableInput = () => {
     setIsEditing(true);
     setTitle(initialData.title);

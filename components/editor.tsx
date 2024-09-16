@@ -3,9 +3,9 @@ import { BlockNoteEditor, PartialBlock } from "@blocknote/core";
 import { useCreateBlockNote } from "@blocknote/react";
 import { BlockNoteView } from "@blocknote/mantine";
 import { useTheme } from "next-themes";
+import { useEdgeStore } from "@/lib/edgestore";
 import "@blocknote/core/fonts/inter.css";
 import "@blocknote/mantine/style.css";
-import { useEdgeStore } from "@/lib/edgestore";
 
 interface EditorProps {
   onChange: (content: string) => void;
@@ -29,7 +29,7 @@ function Editor({ onChange, initialContent, editable }: EditorProps) {
   });
 
   const handelChange = () => {
-    const content = editor.topLevelBlocks; // افترض أن هذه الطريقة البديلة متاحة
+    const content = editor.topLevelBlocks;
     onChange(JSON.stringify(content, null, 2));
   };
 

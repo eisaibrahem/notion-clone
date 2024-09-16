@@ -32,7 +32,7 @@ function Navbar({ isCollapsed, onResetWidth }: NavBerProps) {
         </div>
       </nav>
     );
-  if (document === null) return <div>Document not found</div>;
+  if (!document) return <div>Document not found</div>;
 
   return (
     <>
